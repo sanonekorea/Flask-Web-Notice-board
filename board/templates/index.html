@@ -1,0 +1,52 @@
+<html>
+  <head>
+    <style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-n9c8{font-size:20px;font-family:"Comic Sans MS", cursive, sans-serif !important;;background-color:#34ff34;text-align:center}
+.tg .tg-78wh{font-size:20px;font-family:"Comic Sans MS", cursive, sans-serif !important;;background-color:#34ff34;text-align:center;vertical-align:top}
+.tg .tg-0lax{font-size:15px;font-family:"Comic Sans MS", text-align:center;vertical-align:center}
+    </style>
+    <h2> Welcome to san91 notice board </h2>
+  </head>
+    <body>
+      <form name='index' action='/' method='GET'>
+        {% if gss %}
+        <h2>hi {{ gss }}</h2>
+        <input type='button' value='logout' onClick="location.href='/logout'">
+        <input type='button' value='mypage' onClick="location.href='/secret'">
+        <input type='button' value='post' onClick="location.href='/posting'">
+        {% else %}
+        <h2> You need to login </h2>
+        <input type='button' value='login' onClick="location.href='/login'">
+        <input type='button' value='join' onClick="location.href='/join'">
+        <input type='button' value='post' onClick="location.href='/posting'">
+        {% endif %}
+      <br><br>
+      <table class="tg" style="undefined;table-layout: fixed; width: 520px">
+        <colgroup>
+          <col style="width: 47px">
+          <col style="width: 282px">
+          <col style="width: 94px">
+          <col style="width: 160px">
+        </colgroup>
+          <tr>
+            <th class="tg-n9c8">idx</th>
+            <th class="tg-78wh">title</th>
+            <th class="tg-78wh">writer</th>
+            <th class="tg-78wh">date</th>
+          </tr>
+        {% if data %}
+            {% for j in data %}
+            <tr>
+              <td class="tg-0lax">{{ loop.revindex }}</td>
+                <td class="tg-0lax"><a href="/view/{{ j[0] }}">{{ j[1] }}</a></td>
+                <td class="tg-0lax">{{ j[3] }}</td>
+                <td class="tg-0lax">{{ j[2] }}</td>
+            </tr>
+            {% endfor %}
+        {% else %}
+        {% endif %}
+    </body>
+</html>

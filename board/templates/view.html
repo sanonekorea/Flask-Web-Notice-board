@@ -1,0 +1,83 @@
+<html>
+  <head>
+      <h2>{{ title }}</h2>
+        <style type="text/css">
+          .tg  {border-collapse:collapse;border-spacing:0;}
+          .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+          .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+          .tg .tg-4i7h{font-size:20px;font-family:"Comic Sans MS", cursive, sans-serif !important;;background-color:#34ff34;border-color:inherit;text-align:center}
+          .tg .tg-kaqi{width:80px;  font-size:20px;font-family:"Comic Sans MS", cursive, sans-serif !important;;background-color:#34ff34;border-color:inherit;text-align:center;vertical-align:top}
+          .tg .tg-0pky{font-size:15px;font-family:"Comic Sans MS", border-color:inherit;text-align:center;vertical-align:center}
+        </style>
+  </head>
+    <body>
+      {% if gss %}
+        <input type='button' value='modify' onClick="location.href='/modipost/{{ idx }}'">
+        <input type='button' value='delete' onClick="location.href='/delete/{{ idx }}'">
+        <input type='button' value='home' onClick="location.href='/'">
+            {{ date }}
+            {{ writer }}
+            {{ content }}
+            <br>
+            {% if fin %}
+            upload : {{ fin }}
+            {% else %}
+            upload : No file
+            {% endif %}
+            <br>
+      {% else %}
+            {{ date }}
+            {{ writer }}
+            {{ content }}
+            <br>
+            {% if fin %}
+            upload : {{ fin }}
+            {% else %}
+            upload : No file
+            {% endif %}
+            <br>
+        <input type='button' value='home' onClick="location.href='/'">
+      {% endif %}
+      {% if res %}
+       <br><br>
+          <form name="comment" action='/view/{{ idx  }}/comment' method='POST'>
+                comment:<input type="text" name="comment"><input type='submit'>
+          </form>
+            <table class="tg" style="undefined;table-layout: fixed; width: 583px">
+              <colgroup>
+                <col style="width: 47px">
+                <col style="width: 282px">
+                <col style="width: 94px">
+                <col style="width: 160px">
+                <col style="width: 130px">
+              </colgroup>
+            <tr>
+              <th class="tg-4i7h">idx</th>
+              <th class="tg-kaqi">comment</th>
+              <th class="tg-kaqi">writer</th>
+              <th class="tg-kaqi">date</th>
+              <th class="tg-kaqi"></th>
+            </tr>
+        {% for i in range(a) %}
+          <tr>
+            <td class="tg-0pky">{{ loop.index }}</td>
+            <td class="tg-0pky">{{ res[i][4] }}</td>
+            <td class="tg-0pky">{{ res[i][2] }}</td>
+            <td class="tg-0pky">{{ res[i][3] }}</td>
+          {% if gss %}
+          <td>
+              <a href="/modcomment/idx={{ idx }}/{{ res[i][0] }}">modify</a>
+              <a href="/delcomment/idx={{ idx }}/{{ res[i][0] }}">delete</a>
+              </td>
+              {% endif %}
+          </tr><br>
+        {% endfor %}
+      {% else %}
+        <br><br>
+          <form name="comment" action='/view/{{ idx  }}/comment' method='POST'>
+            comment:<input type="text" name="comment"><input type='submit'>
+          </form>
+          input comment this post
+      {% endif %}
+    </body>
+</html>
